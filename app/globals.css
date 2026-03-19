@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* Global palette + typography.
+   Fonts come from `next/font/google` in `app/layout.tsx`.
+*/
+:root {
+  --background: #f6f3ea;
+  --foreground: #0f172a;
+  --muted: #5b6578;
+
+  --primary: #c9a227;
+  --primaryDeep: #8a6a12;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-en, ui-sans-serif), system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+.font-ar {
+  font-family: var(--font-ar, ui-sans-serif), system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+.font-en {
+  font-family: var(--font-en, ui-sans-serif), system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+/* Consistent text rendering for crisp exports. */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
