@@ -9,6 +9,8 @@ export default function GreetingForm({
   greetingMessage,
   onGreetingMessageChange,
   nameError,
+  employeeNameMaxLength,
+  greetingMaxLength,
 }: {
   lang: Lang;
   employeeName: string;
@@ -16,6 +18,8 @@ export default function GreetingForm({
   greetingMessage: string;
   onGreetingMessageChange: (value: string) => void;
   nameError: string | null;
+  employeeNameMaxLength: number;
+  greetingMaxLength: number;
 }) {
   const ui = getUi(lang);
   const dir = lang === "ar" ? "rtl" : "ltr";
@@ -48,6 +52,7 @@ export default function GreetingForm({
           aria-describedby={nameError ? "employeeNameError" : undefined}
           autoComplete="off"
           inputMode="text"
+          maxLength={employeeNameMaxLength}
         />
 
         {nameError ? (
@@ -70,6 +75,7 @@ export default function GreetingForm({
           placeholder={ui.placeholders.greetingMessage}
           dir={dir}
           rows={4}
+          maxLength={greetingMaxLength}
           className={[
             fontClass,
             "w-full resize-none rounded-2xl border border-black/10 bg-white/80 px-4 py-3 text-[15px] leading-[1.65] shadow-sm outline-none transition-colors",
@@ -77,6 +83,9 @@ export default function GreetingForm({
           ].join(" ")}
         />
         <p className="text-xs font-semibold text-[var(--muted)]">{ui.helpers.greetingEditable}</p>
+        <p className="text-xs text-[var(--muted)]/90">
+          {greetingMessage.length}/{greetingMaxLength}
+        </p>
       </div>
 
       {/* Hidden hints for screen readers about default values */}

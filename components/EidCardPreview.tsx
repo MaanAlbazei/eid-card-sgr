@@ -2,6 +2,12 @@ import { forwardRef } from "react";
 import type { ForwardedRef } from "react";
 import type { Lang } from "@/types/lang";
 import { brandConfig } from "@/config/brand.config";
+import { assetUrl } from "@/lib/assetUrl";
+
+/**
+ * Template: dark portrait card with baked-in branding (top) and themed illustration at bottom.
+ * Overlay name + greeting in the dark middle only — above Kaaba/sheep — light text for contrast.
+ */
 
 export type EidCardPreviewProps = {
   lang: Lang;
@@ -17,7 +23,6 @@ function EidCardPreviewBase(
   const dir = isAr ? "rtl" : "ltr";
 
   const fontClass = isAr ? "font-ar" : "font-en";
-  const contentTop = isAr ? "mt-[80%]" : "mt-[82%]";
 
   return (
     <div
@@ -26,52 +31,47 @@ function EidCardPreviewBase(
       lang={lang}
       className={[
         fontClass,
-        // Exact provided Eid card ratio, responsive for mobile and desktop.
         "relative w-full max-w-[420px]",
-        "overflow-hidden rounded-none border border-white/10",
-        "shadow-[0_26px_60px_-36px_rgba(0,0,0,0.9)]",
+        "overflow-hidden rounded-none border border-black/10",
+        "shadow-[0_26px_60px_-36px_rgba(0,0,0,0.35)]",
       ].join(" ")}
       style={{ aspectRatio: String(brandConfig.eidBackgroundAspectRatio) }}
-      aria-label={isAr ? "بطاقة تهنئة العيد" : "Eid greeting card"}
+      aria-label={isAr ? "بطاقة تهنئة عيد الأضحى" : "Eid Al-Adha greeting card"}
     >
+      {/* Background: exact template, contain — no crop */}
       <img
-        src={brandConfig.eidBackgroundPath}
-        alt={isAr ? "خلفية العيد" : "Eid background"}
-        className="absolute inset-0 h-full w-full object-contain"
+        src={assetUrl(brandConfig.eidBackgroundPath)}
+        alt=""
+        className="pointer-events-none absolute inset-0 h-full w-full object-contain"
         draggable={false}
       />
 
-      {/* Readability overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/6 via-black/10 to-black/20" />
+      {/* Dynamic text: dark safe band below header logo, ends above bottom illustration (~bottom 30%) */}
+      <div className="absolute inset-x-[8%] top-[28%] bottom-[38%] z-[5] flex flex-col items-center justify-center gap-2.5 px-2 text-center md:inset-x-[9%] md:gap-3">
+        <h2
+          className={[
+            "w-full max-w-[20rem] break-words font-extrabold tracking-tight text-[#faf6ea]",
+            isAr
+              ? "text-[clamp(23px,5.4vw,34px)] leading-[1.22]"
+              : "text-[clamp(21px,4.9vw,30px)] leading-[1.24]",
+            "[text-shadow:0_2px_18px_rgba(0,0,0,0.85),0_1px_3px_rgba(0,0,0,0.95)]",
+            "whitespace-pre-wrap",
+          ].join(" ")}
+        >
+          {employeeName}
+        </h2>
 
-      <div className="relative flex h-full flex-col px-6 py-7">
-        {/* Content */}
-        <div className={`${contentTop} text-center`}>
-          <h2
-            className={[
-              "break-words font-extrabold text-white",
-              isAr
-                ? "text-[clamp(18px,3.2vw,25px)] leading-[1.25] tracking-[-0.02em]"
-                : "text-[clamp(16px,2.8vw,21px)] leading-[1.25] tracking-[-0.01em]",
-              "[text-shadow:0_4px_16px_rgba(0,0,0,0.45)]",
-              "mx-auto max-w-[22rem] whitespace-pre-wrap",
-            ].join(" ")}
-          >
-            {employeeName}
-          </h2>
-
-          <div
-            className={[
-              isAr
-                ? "mt-3 text-[clamp(12px,2.3vw,15px)] leading-[1.75]"
-                : "mt-3 text-[clamp(11px,2vw,14px)] leading-[1.7]",
-              "font-semibold text-white/95 break-words",
-              "max-w-[20rem] mx-auto whitespace-pre-wrap overflow-hidden",
-              "[text-shadow:0_2px_10px_rgba(0,0,0,0.38)]",
-            ].join(" ")}
-          >
-            {greetingMessage}
-          </div>
+        <div
+          className={[
+            "w-full max-w-[19.5rem] break-words font-semibold text-[#f0e6d4]/95",
+            isAr
+              ? "text-[clamp(12.5px,3vw,16.5px)] leading-[1.76]"
+              : "text-[clamp(12px,2.75vw,15.5px)] leading-[1.66]",
+            "[text-shadow:0_2px_14px_rgba(0,0,0,0.82),0_1px_2px_rgba(0,0,0,0.9)]",
+            "whitespace-pre-wrap",
+          ].join(" ")}
+        >
+          {greetingMessage}
         </div>
       </div>
     </div>
@@ -80,4 +80,3 @@ function EidCardPreviewBase(
 
 export const EidCardPreview = forwardRef<HTMLDivElement, EidCardPreviewProps>(EidCardPreviewBase);
 export default EidCardPreview;
-

@@ -12,14 +12,12 @@ export const brandConfig = {
   // ----------------------------------------------------------------------------
   // Assets
   // ----------------------------------------------------------------------------
-  // Replace the logo here with your real Saudi Gold Refinery logo.
-  // Recommended: transparent PNG, ideally 800x800px (or higher).
-  logoPath: "/assets/logo-placeholder.png",
+  // Official Saudi Gold Refinery logo (transparent PNG — shown on dark panels in UI).
+  logoPath: "/assets/sgr-logo.png",
 
-  // Replace the Eid background here with your real background image.
-  // Recommended: portrait image around 1080x1350px (or higher).
-  eidBackgroundPath: "/assets/eid-background.jpg",
-  // Original provided card ratio (width / height) for exact, uncropped display.
+  // Eid Al-Adha template — portrait PNG (black/gold; branding + Kaaba/Hajj artwork baked in).
+  eidBackgroundPath: "/assets/eid-al-adha-background.png",
+  // Width / height of the shipped PNG (must match file — keeps preview/export framed correctly).
   eidBackgroundAspectRatio: 682 / 1024,
 
   // Primary brand colors used across the UI (you can tweak these anytime).
@@ -30,16 +28,16 @@ export const brandConfig = {
   },
 
   footerText: {
-    ar: "مع تمنياتنا لكم بعيد مبارك سعيد. مصفاة الذهب السعودية",
-    en: "Wishing you a blessed Eid. Saudi Gold Refinery",
+    ar: "مع تمنياتنا لكم بعيد أضحى مبارك. مصفاة الذهب السعودية",
+    en: "Warm wishes for Eid Al-Adha. Saudi Gold Refinery",
   },
 
   // ----------------------------------------------------------------------------
   // Default Eid greeting text (prefilled, but fully editable).
   // ----------------------------------------------------------------------------
   defaultEidGreeting: {
-    ar: "كل عام وأنتم بخير، أعاده الله عليكم بالخير واليمن والبركات",
-    en: "Eid Mubarak. Wishing you joy, peace, and blessings on this special occasion.",
+    ar: "عيد أضحى مبارك، تقبل الله طاعاتكم وأعاد الله عليكم هذه المناسبة بالخير واليمن والبركات",
+    en: "Eid Al-Adha Mubarak. May Allah accept your good deeds and bless you with peace and prosperity.",
   },
 };
 

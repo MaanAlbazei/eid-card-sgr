@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:lang="ar" width="1024" height="1536" viewBox="0 0 1024 1536" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="512" y1="0" x2="512" y2="1536" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#071426"/>
+      <stop offset="16%" stop-color="#153a5c"/>
+      <stop offset="28%" stop-color="#3d6f96"/>
+      <stop offset="38%" stop-color="#c8dae8"/>
+      <stop offset="52%" stop-color="#eef4f9"/>
+      <stop offset="66%" stop-color="#e8f0f7"/>
+      <stop offset="78%" stop-color="#a8bed4"/>
+      <stop offset="92%" stop-color="#1f3d5c"/>
+      <stop offset="100%" stop-color="#0a1f33"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1024" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9a7b2c"/>
+      <stop offset="50%" stop-color="#e8d48b"/>
+      <stop offset="100%" stop-color="#9a7b2c"/>
+    </linearGradient>
+    <linearGradient id="goldSoft" x1="512" y1="200" x2="512" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f5e8bc"/>
+      <stop offset="100%" stop-color="#c9a94a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(512 260) rotate(90) scale(420 320)">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="stars" width="48" height="48" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="10" r="0.9" fill="#ffffff" opacity="0.12"/>
+      <circle cx="28" cy="22" r="0.7" fill="#ffffff" opacity="0.1"/>
+      <circle cx="40" cy="8" r="0.55" fill="#ffffff" opacity="0.14"/>
+    </pattern>
+  </defs>
+
+  <rect width="1024" height="1536" fill="url(#sky)"/>
+  <rect width="1024" height="380" fill="url(#stars)" opacity="0.9"/>
+
+  <!-- Subtle crescent -->
+  <g opacity="0.38" transform="translate(780 108)">
+    <circle r="26" fill="url(#goldSoft)" opacity="0.55"/>
+    <circle r="22" cx="11" cy="-3" fill="#1a4a72"/>
+  </g>
+
+  <!-- Soft highlight behind heading band only -->
+  <ellipse cx="512" cy="290" rx="420" ry="120" fill="url(#glow)"/>
+
+  <!-- Holiday headings (employee lines added by app, not in artwork) -->
+  <text
+    x="512"
+    y="268"
+    text-anchor="middle"
+    fill="url(#goldSoft)"
+    font-family="Tahoma, 'Segoe UI', Arial, sans-serif"
+    font-size="56"
+    font-weight="700"
+    filter="url(#soft)"
+  >
+    &#1593;&#1610;&#1583; &#1571;&#1590;&#1581;&#1609; &#1605;&#1576;&#1575;&#1585;&#1603;
+  </text>
+  <text
+    x="512"
+    y="322"
+    text-anchor="middle"
+    fill="rgba(255,255,255,0.92)"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="27"
+    letter-spacing="0.14em"
+    font-weight="600"
+  >
+    Eid Al-Adha Mubarak
+  </text>
+
+  <path d="M160 360h704" stroke="url(#gold)" stroke-width="1.2" opacity="0.45"/>
+
+  <!-- Large calm middle: minimal art, safe zone approx y 380-1180 -->
+
+  <!-- Distant mosque silhouette (very subtle, low in safe-zone transition) -->
+  <g opacity="0.07" fill="#0b1929">
+    <path d="M140 1180h48v-62l24-18 24 18v62h40v-52l20-14 20 14v52h36v-46l18-12 18 12v46h32v60H140z"/>
+    <path d="M420 1185h55v-58l28-20 28 20v58h50v-54l22-15 22 15v54h44v-48l19-11 19 11v48h38v55H420z"/>
+    <path d="M740 1188h60v-64l30-22 30 22v64h52v-56l24-16 24 16v56h46v-50l21-13 21 13v50h40v58H740z"/>
+  </g>
+
+  <!-- Bottom accent band -->
+  <linearGradient id="bottomFade" x1="512" y1="1220" x2="512" y2="1536" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#0a1f33" stop-opacity="0"/>
+    <stop offset="55%" stop-color="#0d2740" stop-opacity="0.85"/>
+    <stop offset="100%" stop-color="#050d18"/>
+  </linearGradient>
+  <rect x="0" y="1220" width="1024" height="316" fill="url(#bottomFade)"/>
+
+  <!-- Refined lanterns: sparse, low contrast -->
+  <g opacity="0.55" stroke="url(#gold)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(200 1300)">
+      <path d="M0-85v170" stroke-width="2"/>
+      <path d="M-42-25h84l-10 50H10l-10-50z" fill="rgba(232,212,139,0.08)" stroke-width="1.6"/>
+      <path d="M-28 25h56" stroke-width="1.4" opacity="0.7"/>
+    </g>
+    <g transform="translate(512 1325)">
+      <path d="M0-78v156" stroke-width="2"/>
+      <path d="M-48-22h96l-11 48H11l-11-48z" fill="rgba(232,212,139,0.07)" stroke-width="1.6"/>
+      <path d="M-32 26h64" stroke-width="1.4" opacity="0.65"/>
+    </g>
+    <g transform="translate(824 1300)">
+      <path d="M0-85v170" stroke-width="2"/>
+      <path d="M-42-25h84l-10 50H10l-10-50z" fill="rgba(232,212,139,0.08)" stroke-width="1.6"/>
+      <path d="M-28 25h56" stroke-width="1.4" opacity="0.7"/>
+    </g>
+  </g>
+
+  <path
+    d="M120 1385c120-40 240-40 392-40s272 0 392 40"
+    stroke="url(#gold)"
+    stroke-width="1"
+    opacity="0.22"
+    fill="none"
+  />
+</svg>

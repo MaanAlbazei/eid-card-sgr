@@ -16,8 +16,9 @@ const englishFont = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Eid Greeting Card Generator",
-  description: "Generate personalized Eid cards for Saudi Gold Refinery.",
+  title: "Eid Al-Adha Greeting Card Generator — Saudi Gold Refinery",
+  description:
+    "Create personalized Eid Al-Adha greeting cards for Saudi Gold Refinery.",
 };
 
 export default function RootLayout({

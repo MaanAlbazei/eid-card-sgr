@@ -21,7 +21,7 @@ Open:
 ## How to Replace the Company Logo
 
 1. Replace the placeholder file:
-   - `public/assets/logo-placeholder.png`
+   - `public/assets/logo-placeholder.svg`
 2. If you change the filename/path, update:
    - `config/brand.config.ts` -> `logoPath`
 
@@ -77,7 +77,7 @@ The app branding and greetings are controlled from:
 - `config/brand.config.ts`
 
 1. Real SGR logo
-   - Put your real logo at: `public/assets/logo-placeholder.png`
+   - Put your real logo at: `public/assets/logo-placeholder.svg`
    - (Or update `logoPath` in `config/brand.config.ts`)
 
 2. Real Eid background

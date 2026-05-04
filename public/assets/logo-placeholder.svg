@@ -1,0 +1,8 @@
+<svg width="280" height="64" viewBox="0 0 280 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="280" height="64" rx="12" fill="#F7F0DA"/>
+  <rect x="10" y="10" width="44" height="44" rx="10" fill="#C9A227"/>
+  <path d="M23 42L32 22L41 42H36.8L35 37.8H28.9L27.1 42H23Z" fill="#0F172A"/>
+  <path d="M30.2 33.6H33.7L31.95 29.2L30.2 33.6Z" fill="#F7F0DA"/>
+  <text x="66" y="29" fill="#8A6A12" font-size="14" font-family="Arial, sans-serif" font-weight="700">Saudi Gold Refinery</text>
+  <text x="66" y="47" fill="#0F172A" font-size="12" font-family="Arial, sans-serif">Logo Placeholder</text>
+</svg>

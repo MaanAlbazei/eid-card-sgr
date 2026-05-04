@@ -2,15 +2,25 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Lang } from "@/types/lang";
+import type { ImageExportFormat } from "@/types/exportFormat";
 import { brandConfig } from "@/config/brand.config";
 import { getUi } from "@/config/translations";
 import Navbar from "@/components/Navbar";
 import GreetingForm from "@/components/GreetingForm";
 import EidCardPreview from "@/components/EidCardPreview";
 import ActionButtons from "@/components/ActionButtons";
+import CardExportSection from "@/components/CardExportSection";
 import Footer from "@/components/Footer";
-import { exportElementAsPng, shareOrDownloadBlob } from "@/lib/exportElementAsPng";
+import {
+  renderCardToBlob,
+  deliverCardImage,
+  buildCardFilename,
+  openBlobPreviewTab,
+} from "@/lib/exportCardImage";
 import { sanitizeForFilename } from "@/lib/sgrText";
+
+const EMPLOYEE_NAME_MAX_LENGTH = 80;
+const GREETING_MAX_LENGTH = 220;
 
 export default function Page() {
   const [lang, setLang] = useState<Lang>(brandConfig.defaultLanguage);
@@ -23,6 +33,10 @@ export default function Page() {
   const [nameError, setNameError] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  const [exportFormat, setExportFormat] = useState<ImageExportFormat>("png");
+  const [hasExported, setHasExported] = useState(false);
+
+  const lastExportRef = useRef<{ blob: Blob } | null>(null);
 
   const ui = getUi(lang);
   const dir = lang === "ar" ? "rtl" : "ltr";
@@ -59,7 +73,15 @@ export default function Page() {
     setEmployeeName("");
     setNameError(null);
     setDownloadError(null);
+    setHasExported(false);
+    lastExportRef.current = null;
     setGreetingMessage(brandConfig.defaultEidGreeting[lang]);
+  }
+
+  function handleOpenImageTab() {
+    const blob = lastExportRef.current?.blob;
+    if (!blob) return;
+    openBlobPreviewTab(blob);
   }
 
   async function handleDownload() {
@@ -90,13 +112,19 @@ export default function Page() {
         await document.fonts.ready;
       }
 
-      const blob = await exportElementAsPng(cardRef.current, { pixelRatio: 3, backgroundColor: null });
+      const { blob, effectiveFormat } = await renderCardToBlob(cardRef.current, {
+        format: exportFormat,
+        pixelRatio: 3,
+        backgroundColor: null,
+      });
+
+      lastExportRef.current = { blob };
+      setHasExported(true);
 
       const nameSlug = sanitizeForFilename(employeeName);
-      const dateSlug = new Date().toISOString().slice(0, 10).replaceAll("-", "");
-      const filename = `SGR_Eid_Greeting_${lang}_${nameSlug}_${dateSlug}.png`;
+      const filename = buildCardFilename(nameSlug, effectiveFormat);
 
-      await shareOrDownloadBlob(blob, filename);
+      await deliverCardImage(blob, filename, effectiveFormat);
     } catch {
       setDownloadError(
         ui.download.exportError
@@ -118,38 +146,43 @@ export default function Page() {
       <Navbar lang={lang} onLangChange={setLang} />
 
       <main className="mx-auto w-full max-w-5xl px-4 pb-10 pt-8 md:px-6 md:pt-12">
-        <div className="space-y-4 text-center md:text-start">
-          <h1 className="text-[26px] font-extrabold leading-tight tracking-tight text-[var(--foreground)] md:text-[34px]">
-            {ui.title}
-          </h1>
-          <p className="text-[15px] font-semibold text-[var(--muted)] md:text-[16px]">{ui.subtitle}</p>
-        </div>
+        <h1 className="sr-only">{ui.title}</h1>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start">
           <section className="w-full rounded-[26px] border border-black/10 bg-white/85 p-4 shadow-[0_18px_45px_-22px_rgba(0,0,0,0.55)] ring-1 ring-black/5 md:p-6">
             <GreetingForm
               lang={lang}
               employeeName={employeeName}
               onEmployeeNameChange={(v) => {
-                setEmployeeName(v);
+                const sanitizedName = v.replace(/\s{2,}/g, " ").slice(0, EMPLOYEE_NAME_MAX_LENGTH);
+                setEmployeeName(sanitizedName);
                 if (nameError) setNameError(null);
                 if (downloadError) setDownloadError(null);
               }}
               greetingMessage={greetingMessage}
               onGreetingMessageChange={(v) => {
-                setGreetingMessage(v);
+                const normalizedMessage = v.slice(0, GREETING_MAX_LENGTH);
+                setGreetingMessage(normalizedMessage);
                 if (downloadError) setDownloadError(null);
               }}
               nameError={nameError}
+              employeeNameMaxLength={EMPLOYEE_NAME_MAX_LENGTH}
+              greetingMaxLength={GREETING_MAX_LENGTH}
             />
 
-            <div className="mt-6">
-              <ActionButtons
+            <div className="mt-6 space-y-4">
+              <CardExportSection
                 lang={lang}
-                isDownloading={isDownloading}
+                exportFormat={exportFormat}
+                onExportFormatChange={setExportFormat}
                 onDownload={handleDownload}
-                onReset={resetForm}
+                onOpenImageTab={handleOpenImageTab}
+                isDownloading={isDownloading}
+                showOpenImageTab={hasExported}
               />
+              <div className="flex justify-stretch sm:justify-end">
+                <ActionButtons lang={lang} onReset={resetForm} disabled={isDownloading} />
+              </div>
             </div>
 
             {downloadError ? (
